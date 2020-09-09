@@ -1,0 +1,56 @@
+{% set name = "horovod" %}
+{% set version = "0.19.5" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  git_url: https://github.com/horovod/horovod.git
+  git_rev: v{{ version }}
+  patches:
+    - patches/horovodrun.patch
+    - patches/pytorch_mnist.patch
+
+build:
+  number: 1
+  string: cuda{{ cudatoolkit | replace(".*", "") }}_py{{ python | replace(".", "") }}_{{ PKG_BUILDNUM }}
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+  host:
+    - python            {{ python      }}
+    - cudatoolkit-dev   {{ cudatoolkit }}
+    - cffi              {{ cffi        }}
+    - six               {{ six         }}
+    - pyyaml            {{ pyyaml      }}
+    - psutil            {{ psutil      }}
+    - cloudpickle       {{ cloudpickle }}
+    - openmpi           {{ openmpi     }}
+    - nccl              {{ nccl        }}
+    - tensorflow        {{ tensorflow  }}
+    - pytorch           {{ pytorch }}
+  run:
+    - python            {{ python      }}
+    - cudatoolkit       {{ cudatoolkit }}
+    - cffi              {{ cffi        }}
+    - six               {{ six         }}
+    - pyyaml            {{ pyyaml      }}
+    - psutil            {{ psutil      }}
+    - cloudpickle       {{ cloudpickle }}
+    - openmpi           {{ openmpi     }}
+    - nccl              {{ nccl        }}
+    - pytest            {{ pytest      }}
+  run_constrained:
+    - tensorflow        {{ tensorflow }}
+    - pytorch           {{ pytorch }}
+about:
+  home: https://github.com/horovod/horovod.git
+  license_file: LICENSE
+  summary: Distributed training framework for TensorFlow, Keras, PyTorch, and Apache MXNet.
+
+extra:
+  recipe-maintainers:
+    - open-ce/open-ce-dev-team

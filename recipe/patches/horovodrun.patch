@@ -1,0 +1,14 @@
+diff --git a/setup.py b/setup.py
+index ad145a7e..1a8859df 100644
+--- a/setup.py
++++ b/setup.py
+@@ -1630,4 +1630,8 @@ setup(name='horovod',
+           'spark': spark_require_list
+       },
+       zip_safe=False,
+-      scripts=['bin/horovodrun'])
++      entry_points={
++          'console_scripts': [
++              'horovodrun = horovod.run.runner:run_commandline'
++          ]
++      })

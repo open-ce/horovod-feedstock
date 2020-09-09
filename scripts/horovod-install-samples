@@ -1,0 +1,70 @@
+#!/usr/bin/env sh
+# *****************************************************************
+#
+# Licensed Materials - Property of IBM
+#
+# (C) Copyright IBM Corp. 2020. All Rights Reserved.
+#
+# US Government Users Restricted Rights - Use, duplication or
+# disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+#
+# *****************************************************************
+
+BASEDIR=$CONDA_PREFIX
+SUBDIRS="horovod"
+
+if [ -z "$1" -o ! -z "$2" ]
+then
+    echo "Usage: $0 <directory>"
+    echo "Copies samples ($SUBDIRS) to <directory>"
+    echo "Will create <directory> if it does not exist."
+    exit 1
+fi
+
+if [ -z $CONDA_PREFIX ]
+then
+    echo "CONDA_PREFIX is not set. A conda environment must be activated"
+    echo "before running this command. Run: conda activate [<env>]"
+    exit 1
+fi
+
+if [ ! -d "$1" ]
+then
+    echo "Creating directory $1"
+    if ! mkdir -p "$1"
+    then
+        echo "Failed to create directory $1"
+        exit 1
+    fi
+else
+    echo "Write into existing directory $1? (yN)"
+    read answer
+    case "$answer" in
+        y*|Y*)  :
+                ;;
+        *)      echo "Quit."
+                exit 1
+                ;;
+    esac
+fi
+
+for d in $SUBDIRS
+do
+    if [ ! -d "$BASEDIR/$d" ]
+    then
+        echo "Unable to copy $BASEDIR/$d. The directory does not exist."
+        echo "Make sure horovod conda package is installed."
+        exit 1
+    fi
+    echo "Copying $d/ into $1..."
+    if ! cp -r "$BASEDIR/$d" "$1"
+    then
+        echo "Copy failed"
+        exit 1
+    fi
+done
+
+echo "Success"
+
+exit 0
+
