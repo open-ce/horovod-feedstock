@@ -1,0 +1,28 @@
+From 64e7cde7232eec8a5b631702c254636b8c17dbb7 Mon Sep 17 00:00:00 2001
+From: Yilang Hu <hyl19940808@hotmail.com>
+Date: Mon, 29 Jun 2020 15:16:18 +0800
+Subject: [PATCH] debug: fix pytorch_mnist example, bus error
+
+remove kwargs["num_workers"] = 1
+which cause
+*** Process received signal ***
+Signal: Bus error (7)
+Signal code: Non-existant physical address (2)
+Failing at address:
+---
+ examples/pytorch_mnist.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/examples/pytorch_mnist.py b/examples/pytorch_mnist.py
+index 16c3b14aa..b7d708a58 100644
+--- a/examples/pytorch_mnist.py
++++ b/examples/pytorch_mnist.py
+@@ -122,7 +122,7 @@ def test():
+     # Horovod: limit # of CPU threads to be used per worker.
+     torch.set_num_threads(1)
+ 
+-    kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
++    kwargs = {'pin_memory': True} if args.cuda else {}
+     # When supported, use 'forkserver' to spawn dataloader workers instead of 'fork' to prevent
+     # issues with Infiniband implementations that are not fork-safe
+     if (kwargs.get('num_workers', 0) > 0 and hasattr(mp, '_supports_context') and
