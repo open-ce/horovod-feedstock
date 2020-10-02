@@ -15,14 +15,16 @@ source:
 build:
   number: 1
   string: cuda{{ cudatoolkit | replace(".*", "") }}_py{{ python | replace(".", "") }}_{{ PKG_BUILDNUM }}
+  script_env:
+    - CUDA_HOME
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - {{ compiler('cuda') }}
   host:
     - python            {{ python      }}
-    - cudatoolkit-dev   {{ cudatoolkit }}
     - cffi              {{ cffi        }}
     - six               {{ six         }}
     - pyyaml            {{ pyyaml      }}
