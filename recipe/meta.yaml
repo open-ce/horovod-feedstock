@@ -44,7 +44,6 @@ requirements:
     - openmpi           {{ openmpi     }} #[mpi_type == 'openmpi']
     - nccl              {{ nccl        }}
     - pytest            {{ pytest      }}
-    - xgboost           {{ xgboost     }}
   run_constrained:
     - tensorflow        {{ tensorflow }}
     - pytorch           {{ pytorch }}
