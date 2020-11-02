@@ -12,6 +12,22 @@
 
 #Build horovod
 git submodule update --init --recursive
+
+ARCH=`uname -p`
+
+if [[ "${ARCH}" == 'x86_64' ]]; then
+    export HOROVOD_BUILD_ARCH_FLAGS='-march=nocona -mtune=haswell'
+fi
+if [[ "${ARCH}" == 'ppc64le' ]]; then
+    export HOROVOD_BUILD_ARCH_FLAGS='-mcpu=power8 -mtune=power8'
+fi
+
+if [[ $build_type == "cuda" ]]
+then
+    export HOROVOD_CUDA_HOME=$CUDA_HOME
+    export HOROVOD_CUDA_INCLUDE=/usr/include
+fi
+
 HOROVOD_WITHOUT_MXNET=1 HOROVOD_WITHOUT_GLOO=1 HOROVOD_WITH_PYTORCH=1 HOROVOD_WITH_TENSORFLOW=1 HOROVOD_CUDA_HOME=$CUDA_HOME HOROVOD_GPU_ALLREDUCE=NCCL HOROVOD_GPU_BROADCAST=NCCL python setup.py install --prefix=$PREFIX
 
 #Copy example scripts
