@@ -13,6 +13,8 @@
 #Build horovod
 git submodule update --init --recursive
 
+ARCH=`uname -p`
+
 if [[ "${ARCH}" == 'x86_64' ]]; then
     export HOROVOD_BUILD_ARCH_FLAGS='-march=nocona -mtune=haswell'
 fi
