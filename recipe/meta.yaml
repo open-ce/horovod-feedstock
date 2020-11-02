@@ -13,7 +13,7 @@ source:
     - patches/pytorch_mnist.patch
 
 build:
-  number: 3
+  number: 4
   string: cuda{{ cudatoolkit | replace(".*", "") }}_py{{ python | replace(".", "") }}_{{ PKG_BUILDNUM }}
   script_env:
     - CUDA_HOME
