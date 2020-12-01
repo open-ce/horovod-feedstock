@@ -1,5 +1,5 @@
 {% set name = "horovod" %}
-{% set version = "0.19.5" %}
+{% set version = "0.21.0" %}
 
 package:
   name: {{ name }}
@@ -8,12 +8,9 @@ package:
 source:
   git_url: https://github.com/horovod/horovod.git
   git_rev: v{{ version }}
-  patches:
-    - patches/horovodrun.patch
-    - patches/pytorch_mnist.patch
 
 build:
-  number: 5
+  number: 1
   string: cuda{{ cudatoolkit | replace(".*", "") }}_{{ mpi_type }}_py{{ python | replace(".", "") }}_{{ PKG_BUILDNUM }}
   script_env:
     - CUDA_HOME
@@ -22,6 +19,18 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - cmake             {{ cmake       }}
+    - dataclasses       0.7               #[py == 36]
+    - python            {{ python      }}
+    - cffi              {{ cffi        }}
+    - six               {{ six         }}
+    - pyyaml            {{ pyyaml      }}
+    - psutil            {{ psutil      }}
+    - cloudpickle       {{ cloudpickle }}
+    - openmpi           {{ openmpi     }} #[mpi_type == 'openmpi']
+    - nccl              {{ nccl        }}
+    - tensorflow        {{ tensorflow  }}
+    - pytorch           {{ pytorch }}
   host:
     - python            {{ python      }}
     - cffi              {{ cffi        }}
@@ -35,6 +44,7 @@ requirements:
     - pytorch           {{ pytorch }}
   run:
     - python            {{ python      }}
+    - dataclasses       0.7               #[py == 36conda acti]
     - cudatoolkit       {{ cudatoolkit }}
     - cffi              {{ cffi        }}
     - six               {{ six         }}
