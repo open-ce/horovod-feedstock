@@ -28,18 +28,19 @@ then
     export HOROVOD_CUDA_INCLUDE=/usr/include
 fi
 
-HOROVOD_WITHOUT_MXNET=1 HOROVOD_WITHOUT_GLOO=1 HOROVOD_WITH_PYTORCH=1 HOROVOD_WITH_TENSORFLOW=1 HOROVOD_CUDA_HOME=$CUDA_HOME HOROVOD_GPU_ALLREDUCE=NCCL HOROVOD_GPU_BROADCAST=NCCL python setup.py install --prefix=$PREFIX
+MAKEFLAGS="-j1" HOROVOD_WITHOUT_MXNET=1 HOROVOD_WITHOUT_GLOO=1 HOROVOD_WITH_PYTORCH=1 HOROVOD_WITH_TENSORFLOW=1 HOROVOD_CUDA_HOME=$CUDA_HOME HOROVOD_GPU_ALLREDUCE=NCCL HOROVOD_GPU_BROADCAST=NCCL python setup.py install --prefix=$PREFIX
 
 #Copy example scripts
 HVD_EXAMPLES_DIR=$PREFIX/horovod/examples/
 mkdir -p $HVD_EXAMPLES_DIR
-cp examples/pytorch_imagenet_resnet50.py        $HVD_EXAMPLES_DIR
-cp examples/pytorch_mnist.py                    $HVD_EXAMPLES_DIR
-cp examples/pytorch_synthetic_benchmark.py      $HVD_EXAMPLES_DIR
+cp examples/pytorch/pytorch_imagenet_resnet50.py        $HVD_EXAMPLES_DIR
+cp examples/pytorch/pytorch_mnist.py                    $HVD_EXAMPLES_DIR
+cp examples/pytorch/pytorch_synthetic_benchmark.py      $HVD_EXAMPLES_DIR
 
-cp examples/tensorflow2_keras_mnist.py          $HVD_EXAMPLES_DIR
-cp examples/tensorflow2_mnist.py                $HVD_EXAMPLES_DIR
-cp examples/tensorflow2_synthetic_benchmark.py  $HVD_EXAMPLES_DIR
+cp examples/tensorflow2/tensorflow2_keras_mnist.py          $HVD_EXAMPLES_DIR
+cp examples/tensorflow2/tensorflow2_mnist.py                $HVD_EXAMPLES_DIR
+cp examples/tensorflow2/tensorflow2_synthetic_benchmark.py  $HVD_EXAMPLES_DIR
+cp examples/tensorflow2/tensorflow2_keras_synthetic_benchmark.py  $HVD_EXAMPLES_DIR
 
 #Copy examples install script
 cp $RECIPE_DIR/../scripts/horovod-install-samples $PREFIX/bin
