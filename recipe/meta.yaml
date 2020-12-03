@@ -44,7 +44,7 @@ requirements:
     - pytorch           {{ pytorch }}
   run:
     - python            {{ python      }}
-    - dataclasses       0.7               #[py == 36conda acti]
+    - dataclasses       0.7               #[py == 36]
     - cudatoolkit       {{ cudatoolkit }}
     - cffi              {{ cffi        }}
     - six               {{ six         }}
