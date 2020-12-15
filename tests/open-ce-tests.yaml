@@ -1,0 +1,17 @@
+tests:
+{% if build_type=='cuda' %}
+  - name: Setup Horovod Tests
+    command: horovod-install-samples horovod
+
+  - name: Run Horovod Pytorch Synthetic Test
+    command: horovodrun -np 1 python horovod/horovod/examples/pytorch_synthetic_benchmark.py
+
+  - name: Run Horovod Tensorflow Synthetic Test
+    command: horovodrun -np 1 python horovod/horovod/examples/tensorflow2_synthetic_benchmark.py
+
+  - name: Run Horovod Tensorflow Keras Synthetic Test
+    command: horovodrun -np 1 python horovod/horovod/examples/tensorflow2_keras_synthetic_benchmark.py
+
+  - name: Clean tests
+    command: rm -rf horovod
+{% endif %}
