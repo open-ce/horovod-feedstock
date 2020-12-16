@@ -1,0 +1,27 @@
+tests:
+{% if build_type=='cuda' %}
+  - name: Setup Horovod Tests
+    command: |
+      horovod-install-samples horovod
+      conda install mock
+
+  - name: Run Horovod Pytorch Examples Test
+    command: |
+      if conda list pytorch | grep -q pytorch ; then
+        horovodrun --mpi -np 1 python horovod/horovod/examples/pytorch_synthetic_benchmark.py
+      else
+        echo "Pytorch is not installed. Skipping tests."
+      fi
+
+  - name: Run Horovod Tensorflow Examples Test
+    command: |
+      if conda list tensorflow | grep -q tensorflow ; then
+        horovodrun --mpi -np 1 python horovod/horovod/examples/tensorflow2_synthetic_benchmark.py
+        horovodrun --mpi -np 1 python horovod/horovod/examples/tensorflow2_keras_synthetic_benchmark.py
+      else
+        echo "Tensorflow is not installed. Skipping tests."
+      fi
+
+  - name: Clean tests
+    command: rm -rf horovod
+{% endif %}
