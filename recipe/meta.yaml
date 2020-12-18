@@ -10,7 +10,7 @@ source:
   git_rev: v{{ version }}
 
 build:
-  number: 2
+  number: 3
   string: cuda{{ cudatoolkit | replace(".*", "") }}_{{ mpi_type }}_py{{ python | replace(".", "") }}_{{ PKG_BUILDNUM }}
   script_env:
     - CUDA_HOME
@@ -35,6 +35,7 @@ requirements:
     - python            {{ python      }}
     - cffi              {{ cffi        }}
     - six               {{ six         }}
+    - make
     - pyyaml            {{ pyyaml      }}
     - psutil            {{ psutil      }}
     - cloudpickle       {{ cloudpickle }}
