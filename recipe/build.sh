@@ -25,7 +25,10 @@ fi
 if [[ $build_type == "cuda" ]]
 then
     export HOROVOD_CUDA_HOME=$CUDA_HOME
-    export HOROVOD_CUDA_INCLUDE=/usr/include
+    # Create symlinks of cublas headers into CONDA_PREFIX
+    mkdir -p $CONDA_PREFIX/include
+    find /usr/include -name cublas*.h -exec ln -s "{}" "$CONDA_PREFIX/include/" ';'
+    export CXXFLAGS="${CXXFLAGS} -I${PREFIX}/include -I${CUDA_HOME}/include -I${CONDA_PREFIX}/include"
 fi
 
 MAKEFLAGS="-j1" HOROVOD_WITHOUT_MXNET=1 HOROVOD_WITHOUT_GLOO=1 HOROVOD_WITH_MPI=1 HOROVOD_WITH_PYTORCH=1 HOROVOD_WITH_TENSORFLOW=1 HOROVOD_CUDA_HOME=$CUDA_HOME HOROVOD_GPU_ALLREDUCE=NCCL HOROVOD_GPU_BROADCAST=NCCL python setup.py install --prefix=$PREFIX
