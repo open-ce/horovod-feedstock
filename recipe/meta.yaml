@@ -10,7 +10,7 @@ source:
   git_rev: v{{ version }}
 
 build:
-  number: 4
+  number: 5
   string: cuda{{ cudatoolkit | replace(".*", "") }}_{{ mpi_type }}_py{{ python | replace(".", "") }}_{{ PKG_BUILDNUM }}
   script_env:
     - CUDA_HOME
@@ -60,8 +60,11 @@ requirements:
     - pytorch           {{ pytorch }}
 about:
   home: https://github.com/horovod/horovod.git
+  license: Apache 2.0
+  license_family: APACHE
   license_file: LICENSE
   summary: Distributed training framework for TensorFlow, Keras, PyTorch, and Apache MXNet.
+  description: Distributed training framework for TensorFlow, Keras, PyTorch, and Apache MXNet.
 
 extra:
   recipe-maintainers:
