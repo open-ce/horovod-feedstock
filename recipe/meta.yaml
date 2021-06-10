@@ -10,7 +10,7 @@ source:
   git_rev: v{{ version }}
 
 build:
-  number: 6
+  number: 7
   string: cuda{{ cudatoolkit | replace(".*", "") }}_{{ mpi_type }}_py{{ python | replace(".", "") }}_{{ PKG_BUILDNUM }}
   script_env:
     - CUDA_HOME
@@ -20,6 +20,9 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    # Use pins to control cos6/cos7 match
+    - libgcc-ng  {{ libgcc }}
+    - libstdcxx-ng  {{ libstdcxx }}
     - cmake             {{ cmake       }}
     - dataclasses       0.7               #[py == 36]
     - python            {{ python      }}
@@ -44,6 +47,9 @@ requirements:
     - nccl              {{ nccl        }}
     - tensorflow        {{ tensorflow  }}
     - pytorch           {{ pytorch }}
+    # Use pins to control cos6/cos7 match
+    - libgcc-ng  {{ libgcc }}
+    - libstdcxx-ng  {{ libstdcxx }}
   run:
     - python            {{ python      }}
     - dataclasses       0.7               #[py == 36]
