@@ -20,6 +20,9 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    # Use pins to control cos6/cos7 match
+    - libgcc-ng  {{ libgcc }}
+    - libstdcxx-ng  {{ libstdcxx }}
     - cmake             {{ cmake       }}
     - dataclasses       0.7               #[py == 36]
     - python            {{ python      }}
@@ -59,9 +62,6 @@ requirements:
     - openmpi           {{ openmpi     }} #[mpi_type == 'openmpi']
     - nccl              {{ nccl        }}
     - pytest            {{ pytest      }}
-    # Use pins to control cos6/cos7 match
-    - libgcc-ng  {{ libgcc }}
-    - libstdcxx-ng  {{ libstdcxx }}
   run_constrained:
     - tensorflow        {{ tensorflow }}
     - pytorch           {{ pytorch }}
