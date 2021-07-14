@@ -10,22 +10,16 @@ source:
   git_rev: v{{ version }}
 
 build:
-  number: 7
+  number: 8
   string: cuda{{ cudatoolkit | replace(".*", "") }}_{{ mpi_type }}_py{{ python | replace(".", "") }}_{{ PKG_BUILDNUM }}
   script_env:
     - CUDA_HOME
     - MPI_DIR
-  ignore_run_exports:
-    - libgcc-ng
-    - libstdcxx-ng
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    # Use pins to control cos6/cos7 match
-    - libgcc-ng  {{ libgcc }}
-    - libstdcxx-ng  {{ libstdcxx }}
     - cmake             {{ cmake       }}
     - dataclasses       0.7               #[py == 36]
     - python            {{ python      }}
