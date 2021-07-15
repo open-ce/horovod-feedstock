@@ -10,14 +10,11 @@ source:
   git_rev: v{{ version }}
 
 build:
-  number: 7
+  number: 8
   string: cuda{{ cudatoolkit | replace(".*", "") }}_{{ mpi_type }}_py{{ python | replace(".", "") }}_{{ PKG_BUILDNUM }}
   script_env:
     - CUDA_HOME
     - MPI_DIR
-  ignore_run_exports:
-    - libgcc-ng
-    - libstdcxx-ng
 
 requirements:
   build:
@@ -65,9 +62,6 @@ requirements:
     - openmpi           {{ openmpi     }} #[mpi_type == 'openmpi']
     - nccl              {{ nccl        }}
     - pytest            {{ pytest      }}
-    # Use pins to control cos6/cos7 match
-    - libgcc-ng  {{ libgcc }}
-    - libstdcxx-ng  {{ libstdcxx }}
   run_constrained:
     - tensorflow        {{ tensorflow }}
     - pytorch           {{ pytorch }}
