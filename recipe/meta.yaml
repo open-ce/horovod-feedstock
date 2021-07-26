@@ -15,9 +15,6 @@ build:
   script_env:
     - CUDA_HOME
     - MPI_DIR
-  ignore_run_exports:
-    - libgcc-ng
-    - libstdcxx-ng
 
 requirements:
   build:
@@ -65,9 +62,6 @@ requirements:
     - openmpi           {{ openmpi     }} #[mpi_type == 'openmpi']
     - nccl              {{ nccl        }}
     - pytest            {{ pytest      }}
-    # Use pins to control cos6/cos7 match
-    - libgcc-ng  {{ libgcc }}
-    - libstdcxx-ng  {{ libstdcxx }}
   run_constrained:
     - tensorflow        {{ tensorflow }}
     - pytorch           {{ pytorch }}
