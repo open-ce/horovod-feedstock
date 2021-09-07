@@ -21,9 +21,6 @@ requirements:
     # Use the system compilers when wanting to build with the system mpi.
     - {{ compiler('c') }}                 #[mpi_type != 'system']
     - {{ compiler('cxx') }}               #[mpi_type != 'system']
-    # Use pins to control cos6/cos7 match
-    - libgcc-ng  {{ libgcc }}
-    - libstdcxx-ng  {{ libstdcxx }}
     - cmake             {{ cmake       }}
     - dataclasses       0.7               #[py == 36]
     - python            {{ python      }}
@@ -48,9 +45,6 @@ requirements:
     - nccl              {{ nccl        }}
     - tensorflow        {{ tensorflow  }}
     - pytorch           {{ pytorch }}
-    # Use pins to control cos6/cos7 match
-    - libgcc-ng  {{ libgcc }}
-    - libstdcxx-ng  {{ libstdcxx }}
   run:
     - python            {{ python      }}
     - dataclasses       0.7               #[py == 36]
