@@ -1,5 +1,5 @@
 {% set name = "horovod" %}
-{% set version = "0.24.2" %}
+{% set version = "0.24.3" %}
 
 package:
   name: {{ name }}
@@ -22,7 +22,6 @@ requirements:
     - {{ compiler('c') }}                 #[mpi_type != 'system']
     - {{ compiler('cxx') }}               #[mpi_type != 'system']
     - cmake             {{ cmake       }}
-    - dataclasses       0.7               #[py == 36]
     - python            {{ python      }}
     - cffi              {{ cffi        }}
     - six               {{ six         }}
@@ -47,7 +46,6 @@ requirements:
     - pytorch           {{ pytorch }}
   run:
     - python            {{ python      }}
-    - dataclasses       0.7               #[py == 36]
     - cudatoolkit       {{ cudatoolkit }}
     - cffi              {{ cffi        }}
     - six               {{ six         }}
