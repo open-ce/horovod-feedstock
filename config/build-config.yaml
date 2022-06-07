@@ -1,5 +1,0 @@
-recipes:
-{% if build_type == 'cuda' %}
-  - name : horovod
-    path : recipe
-{% endif %}
