@@ -8,6 +8,7 @@ package:
 source:
   git_url: https://github.com/horovod/horovod.git
   git_rev: v{{ version }}
+  patches: 0001-update-message_generated.h-to-match-flatbuffers-v23.1.21.patch
 
 build:
   number: 1
