@@ -1,15 +1,16 @@
-From 9deb994ee560f91ed2fe4e17789e5c1f1928dd28 Mon Sep 17 00:00:00 2001
+From 6025521fbbe5d6152ab42c2aed420202cec26869 Mon Sep 17 00:00:00 2001
 From: Deepali Chourasia <deepch23@in.ibm.com>
-Date: Wed, 3 Jan 2024 12:41:46 +0000
-Subject: [PATCH] update message_generated.h to match flatbuffers v23.5.26
+Date: Fri, 12 Jan 2024 07:03:25 +0000
+Subject: [PATCH] update message_generated.h to match flatbuffers version
 
+up
 ---
  horovod/common/wire/message_generated.h       | 211 +++++++++---------
  .../tensorflow/custom_call_config_generated.h | 111 ++++-----
  2 files changed, 170 insertions(+), 152 deletions(-)
 
 diff --git a/horovod/common/wire/message_generated.h b/horovod/common/wire/message_generated.h
-index 33d46e2..74d3df2 100644
+index 33d46e2..28be44d 100644
 --- a/horovod/common/wire/message_generated.h
 +++ b/horovod/common/wire/message_generated.h
 @@ -22,6 +22,13 @@
@@ -19,8 +20,8 @@ index 33d46e2..74d3df2 100644
 +// Ensure the included flatbuffers.h is the same version as when this file was
 +// generated, otherwise it may not be compatible.
 +static_assert(FLATBUFFERS_VERSION_MAJOR == 23 &&
-+              FLATBUFFERS_VERSION_MINOR == 5 &&
-+              FLATBUFFERS_VERSION_REVISION == 26,
++              FLATBUFFERS_VERSION_MINOR == 1 &&
++              FLATBUFFERS_VERSION_REVISION == 21,
 +             "Non-compatible flatbuffers version included");
 +
  namespace horovod {
@@ -507,7 +508,7 @@ index 33d46e2..74d3df2 100644
        _fbb,
        responses__,
 diff --git a/horovod/tensorflow/custom_call_config_generated.h b/horovod/tensorflow/custom_call_config_generated.h
-index 1406a2f..cfd1589 100644
+index 1406a2f..5b74987 100644
 --- a/horovod/tensorflow/custom_call_config_generated.h
 +++ b/horovod/tensorflow/custom_call_config_generated.h
 @@ -6,6 +6,13 @@
@@ -517,8 +518,8 @@ index 1406a2f..cfd1589 100644
 +// Ensure the included flatbuffers.h is the same version as when this file was
 +// generated, otherwise it may not be compatible.
 +static_assert(FLATBUFFERS_VERSION_MAJOR == 23 &&
-+              FLATBUFFERS_VERSION_MINOR == 5 &&
-+              FLATBUFFERS_VERSION_REVISION == 26,
++              FLATBUFFERS_VERSION_MINOR == 1 &&
++              FLATBUFFERS_VERSION_REVISION == 21,
 +             "Non-compatible flatbuffers version included");
 +
  #include "../common/wire/message_generated.h"
